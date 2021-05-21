@@ -6,7 +6,8 @@ Authentication done using JWTs and redis.
 
 Tests for authentication and user routes written using Jest.
 
-# Project Setup
+## Project Setup 
+___
 
 1. Clone the backend repository
 
@@ -61,7 +62,8 @@ Tests for authentication and user routes written using Jest.
 
    ```
 
-# References
+## References
+___
 
 [Original Game Play Store Link](https://play.google.com/store/apps/details?id=com.BuddyMattEnt.ChainReaction&hl=en_IN&gl=US)
 
