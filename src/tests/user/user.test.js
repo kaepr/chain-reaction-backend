@@ -1,5 +1,5 @@
 import supertest from 'supertest';
-import User from '../../models/User';
+// import User from '../../models/User';
 import app from '../../app';
 // eslint-disable-next-line import/named
 import { setupDB } from '../../setup-test';

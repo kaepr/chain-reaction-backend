@@ -121,4 +121,56 @@ describe('User Login and Registration', () => {
 
     expect(res.status).toBe(401);
   });
+
+  test('Refresh Token', async () => {
+    const email = 'a@a.com';
+    const password = '123456';
+    const username = 'Test User';
+
+    const res = await request.post('/api/auth/register').send({
+      username,
+      password,
+      email,
+    });
+
+    const tokens = res.body;
+
+    const allUsers = await User.find();
+    expect(allUsers.length).toBe(1);
+
+    const res2 = await request.post('/api/auth/refresh-token').send({
+      refreshToken: tokens.refreshToken,
+    });
+
+    expect(res2.status).toBe(200);
+  });
+
+  test('Logout', async () => {
+    const email = 'a@a.com';
+    const password = '123456';
+    const username = 'Test User';
+
+    const res = await request.post('/api/auth/register').send({
+      username,
+      password,
+      email,
+    });
+
+    const tokens = res.body;
+
+    const allUsers = await User.find();
+    expect(allUsers.length).toBe(1);
+
+    const res2 = await request.delete('/api/auth/logout').send({
+      refreshToken: tokens.refreshToken,
+    });
+
+    expect(res2.status).toBe(204);
+  });
+
+  test('Logout Wrong', async () => {
+    const res = await request.post('/api/auth/logout').send();
+
+    expect(res.status).toBe(404);
+  });
 });

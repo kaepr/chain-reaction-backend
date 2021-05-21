@@ -100,7 +100,6 @@ export const logout = async (req, res, next) => {
         logger.error(err.message);
         throw createError.InternalServerError();
       }
-      console.log(val);
       return res.sendStatus(204);
     });
   } catch (err) {
