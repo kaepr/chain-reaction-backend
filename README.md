@@ -38,13 +38,13 @@ The project uses Express, Socket.io and MongoDB. It uses JsonWebToken and redis 
 
    Either install and run MongoDB, or set up a cloud database such as MongoDB Atlas.
 
-6. Env file ( set NODE_ENV to development initially)
+6. Env file ( sets NODE_ENV to development initially)
 
    ```
    MONGO_URI_STRING_TEST =
    MONGO_URI_STRING_DEV =
-   PORT =
-   NODE_ENV =
+   PORT = 
+   NODE_ENV = development
    ACCESS_TOKEN_SECRET =
    REFRESH_TOKEN_SECRET =
    ```
@@ -54,11 +54,9 @@ The project uses Express, Socket.io and MongoDB. It uses JsonWebToken and redis 
 7. Start server
 
    ```javascript
-
    npm run dev // development
    npm run start // starts server after transpililing
    npm test // runs jest
-
    ```
 
 ## References
