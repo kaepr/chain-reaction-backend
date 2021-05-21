@@ -1,32 +1,10 @@
 import supertest from 'supertest';
 import User from '../models/User';
 import app from '../app';
+// eslint-disable-next-line import/named
 import { setupDB } from '../setup-test';
 
 const request = supertest(app);
-
-// beforeEach(async () => {
-//   await mongoose.connect(`${process.env.MONGO_URI_STRING_TEST}`, {
-//     useCreateIndex: true,
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   });
-// });
-
-// async function removeAllCollections() {
-//   const collections = Object.keys(mongoose.connection.collections);
-//   for (const collectionName of collections) {
-//     const collection = mongoose.connection.collections[collectionName];
-//     await collection.deleteMany();
-//   }
-// }
-
-// afterEach(async () => {
-//   client.end(true);
-//   await removeAllCollections();
-// });
-
-// afterEach(async () => {});
 
 setupDB();
 
@@ -38,7 +16,32 @@ describe('User Login and Registration', () => {
       email: 'a@a.com',
     });
 
-    console.log('res', res.body);
+    const allUsers = await User.find();
+    expect(allUsers.length).toBe(1);
+    expect(res.status).toBe(200);
+  });
+
+  test('Login User', async () => {
+    const email = 'a@a.com';
+    const password = '123456';
+    const username = 'Test User';
+
+    const token = await request.post('/api/auth/register').send({
+      username,
+      password,
+      email,
+    });
+
+    const allUsers = await User.find();
+    expect(allUsers.length).toBe(1);
+
+    const res = await request.post('/api/auth/login').send({
+      password,
+      email,
+    });
+    //   .set('Authorization', `Bearer ${token.accessToken}`);
+
+    console.log('res', res);
 
     expect(res.status).toBe(200);
   });
