@@ -15,7 +15,6 @@ import {
 export const register = async (req, res, next) => {
   try {
     const validated = await registerSchema.validate(req.body);
-    // logger.info('info from validation ', validated);
     const userExists = await User.findOne({ email: validated.email });
 
     if (userExists) {

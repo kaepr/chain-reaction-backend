@@ -12,6 +12,7 @@ const expressLogger = expressPino({ logger });
 
 // Import Routes
 const authRoute = require('./routes/auth');
+const userRoute = require('./routes/user');
 
 // Sets env file
 dotenv.config();
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Set Routes
 app.use('/api/auth', authRoute);
+app.use('/api/user', userRoute);
 
 app.use(async (req, res, next) => {
   next(CreateError.NotFound());

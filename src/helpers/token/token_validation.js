@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import JWT from 'jsonwebtoken';
 import createError from 'http-errors';
 
@@ -26,24 +27,6 @@ export const signAccessToken = (userId) => {
   });
 };
 
-export const verifyAccessToken = (req, res, next) => {
-  if (!req.headers.authorization) return next(createError.Unauthorized());
-
-  const authHeader = req.headers.authorization;
-  const bearerToken = authHeader.split(' ');
-  const token = bearerToken[1];
-
-  JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
-    if (err) {
-      const message =
-        err.name === 'JsonWebTokenError' ? 'Unauthorized' : err.message;
-      return next(createError.Unauthorized(message));
-    }
-    req.payload = payload;
-    next();
-  });
-};
-
 export const signRefreshToken = (userId) => {
   return new Promise((resolve, reject) => {
     const payload = {};
@@ -60,7 +43,7 @@ export const signRefreshToken = (userId) => {
         reject(createError.InternalServerError());
       }
 
-      client.SET(userId, token, 'EX', 365 * 24 * 60 * 60, (error, reply) => {
+      client.SET(userId, token, 'EX', 365 * 24 * 60 * 60, (error) => {
         if (error) {
           logger.error(error.message);
           reject(createError.InternalServerError());
