@@ -6,8 +6,7 @@ import logger from '../utils/logger';
 export const getCurrentUserData = async (req, res, next) => {
   try {
     const userId = req.payload.aud;
-    console.log('USER ID', userId);
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).select('-password');
     if (!user) {
       throw createError.NotFound('User does not exist');
     }
@@ -22,7 +21,9 @@ export const getCurrentUserData = async (req, res, next) => {
 
 export const uerDataTest = async (req, res, next) => {
   try {
-    const userId = req.payload;
+    res.json({
+      yes: 'yes',
+    });
   } catch (err) {
     next(err);
   }

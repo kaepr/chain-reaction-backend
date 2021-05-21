@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import createError from 'http-errors';
 
 import User from '../models/User';
@@ -34,7 +35,9 @@ export const register = async (req, res, next) => {
       refreshToken,
     });
   } catch (err) {
-    logger.error('err : ', err);
+    if (err.name === 'ValidationError') {
+      return next(createError.BadRequest(err.message));
+    }
     next(err);
   }
 };
@@ -63,6 +66,9 @@ export const login = async (req, res, next) => {
     });
   } catch (err) {
     logger.error(err);
+    if (err.name === 'ValidationError') {
+      return next(createError.BadRequest(err.message));
+    }
     next(err);
   }
 };

@@ -3,12 +3,11 @@ import JWT from 'jsonwebtoken';
 import createError from 'http-errors';
 
 const verifyAccessToken = (req, res, next) => {
-  console.log(req.headers);
   if (!req.headers.authorization) return next(createError.Unauthorized());
-  console.log('YES');
+
   const authHeader = req.headers.authorization;
-  const bearerToken = authHeader.split(' ');
-  const token = bearerToken[1];
+  const bearerToken = authHeader.split(/(\s+)/);
+  const token = bearerToken[2];
 
   JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
     if (err) {

@@ -1,10 +1,10 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-restricted-syntax */
 import mongoose from 'mongoose';
+
 const client = require('./helpers/redis/redis_init');
 
 async function removeAllCollections() {
-  await client.end(true);
   const collections = Object.keys(mongoose.connection.collections);
   for (const collectionName of collections) {
     const collection = mongoose.connection.collections[collectionName];
@@ -13,7 +13,6 @@ async function removeAllCollections() {
 }
 
 async function dropAllCollections() {
-  await client.end(true);
   const collections = Object.keys(mongoose.connection.collections);
   for (const collectionName of collections) {
     const collection = mongoose.connection.collections[collectionName];
@@ -26,7 +25,6 @@ async function dropAllCollections() {
       // safely ignore this error too
       if (error.message.includes('a background operation is currently running'))
         return;
-      console.log(error.message);
     }
   }
 }
@@ -48,8 +46,9 @@ module.exports = {
       await removeAllCollections();
     });
 
-    // Disconnect Mongoose
+    // Disconnect Mongoose and clear redis
     afterAll(async () => {
+      await client.flushall('ASYNC', () => {});
       await client.end(true);
       await dropAllCollections();
       await mongoose.connection.close();
