@@ -6,3 +6,4 @@ dump.rdb
 .eslintignore
 .eslintrc.json
 coverage
+.prettierignore
