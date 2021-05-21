@@ -1,7 +1,8 @@
 node_modules
 build
 .env
-
 dump.rdb
-
+.prettierrc
+.eslintignore
+.eslintrc.json
 coverage
