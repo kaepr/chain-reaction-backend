@@ -1,27 +1,28 @@
 # Chain Reaction Online Backend
 
-Backend implemention of the chain reaction game. Made using Express and Socket io and MongoDB.
+Backend implemention of the chain reaction game. 
 
-Authentication done using JWTs and redis.
+## About
+Chain reaction is a multiplayer game, in which players are assigned colors and take turns placing cells on the board. As soon as a cell reaches its limit, the cell explodes and spreads into the adjacent cells, changing the cell's color. As soon as the whole board is covered in a single color, the respective player wins.
 
-Tests for authentication and user routes written using Jest.
+The project uses Express, Socket.io and MongoDB. It uses JsonWebToken and redis for handling user authentication. Tests for the user and auth routes written using Jest.
 
 ## Project Setup 
 1. Clone the backend repository
 
-   ```javascript
+   ```
    git clone https://github.com/standmarsh/chain-reaction-backend.git
    ```
 
 2. Install the dependencies
 
-   ```javascript
+   ```
    npm install
    ```
 
 3. Install redis
 
-   ```javascript
+   ```
    sudo apt-get install redis-server
    ```
 
