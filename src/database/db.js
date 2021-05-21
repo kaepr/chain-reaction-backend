@@ -2,8 +2,15 @@ import mongoose from 'mongoose';
 import logger from '../utils/logger';
 
 const connectDB = async () => {
+  let connString;
+  if (process.env.NODE_ENV === 'development') {
+    connString = process.env.MONGO_URI_STRING_DEV;
+  } else if (process.env.NODE_ENV === 'test') {
+    connString = process.env.MONGO_URI_STRING_TEST;
+  }
+
   try {
-    const conn = await mongoose.connect(`${process.env.MONGO_URI_STRING_DEV}`, {
+    const conn = await mongoose.connect(connString, {
       useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
