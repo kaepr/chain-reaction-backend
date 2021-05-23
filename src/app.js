@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import expressPino from 'express-pino-logger';
 import CreateError from 'http-errors';
+import cors from 'cors';
 
 // Local imports
 import connectDB from './database/db';
@@ -22,6 +23,19 @@ connectDB();
 require('./helpers/redis/redis_init');
 
 const app = express();
+
+const whitelist = ['http://localhost:3000', 'http://localhost:5000'];
+const corsOptions = {
+  origin(origin, cb) {
+    if (whitelist.indexOf(origin) !== -1) {
+      cb(null, true);
+    } else {
+      cb(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
+app.use(cors());
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(expressLogger);
