@@ -24,7 +24,7 @@ require('./helpers/redis/redis_init');
 
 const app = express();
 
-const whitelist = ['http://localhost:3000', 'http://localhost:5000'];
+const whitelist = ['http://localhost:3000', 'localhost:5000'];
 const corsOptions = {
   origin(origin, cb) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -35,7 +35,7 @@ const corsOptions = {
   },
 };
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(expressLogger);

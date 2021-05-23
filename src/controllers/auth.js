@@ -94,8 +94,7 @@ export const logout = async (req, res, next) => {
     if (!refreshToken) throw createError.BadRequest();
 
     const userId = await verifyRefreshToken(refreshToken);
-
-    client.DEL(userId, (err, val) => {
+    client.DEL(userId, (err) => {
       if (err) {
         logger.error(err.message);
         throw createError.InternalServerError();
