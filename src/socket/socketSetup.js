@@ -22,14 +22,19 @@ const verifyUser = async (socket, next) => {
 };
 
 function socketInstance(app) {
+  let url = 'http://localhost:3000';
+
+  if (process.env.NODE_ENV === 'production') {
+    url = 'https://chain-reaction-online.netlify.app';
+  }
+
   const io = new Server(app, {
     transports: ['websocket', 'polling'],
     cors: {
-      origin: ['http://localhost:3000'],
+      origin: [url],
       methods: ['GET', 'POST'],
       credentials: true,
     },
-    // origins: ['http://localhost:3000', 'https://admin.socket.io'],
   });
 
   const onConnection = async function socketHandler(socket) {

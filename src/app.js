@@ -27,8 +27,13 @@ require('./helpers/redis/redis_init');
 const app = express();
 const server = new http.Server(app);
 socketInstance(server);
+let whitelist = [];
 
-const whitelist = ['http://localhost:3000', 'localhost:5000'];
+if (process.env.NODE_ENV === 'production') {
+  whitelist.push('https://chain-reaction-online.netlify.app/');
+} else {
+  whitelist.push('http://localhost:3000');
+}
 
 const corsOptions = {
   origin(origin, cb) {
@@ -41,7 +46,7 @@ const corsOptions = {
 };
 
 // add cors later
-app.use(cors());
+app.use(cors(corsOptions));
 
 // if (process.env.NODE_ENV !== 'test') {
 //   app.use(expressLogger);
