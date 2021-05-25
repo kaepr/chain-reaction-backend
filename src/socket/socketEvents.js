@@ -1,0 +1,16 @@
+export const NEW_USER = 'NEW_USER';
+export const JOIN_SERVER = 'JOIN_SERVER';
+export const CREATE_ROOM = 'CREATE_ROOM';
+export const LEFT_ROOM = 'LEFT_ROOM';
+export const ROOM_FULL = 'ROOM_FULL';
+export const GAME_DATA = 'GAME_DATA';
+export const IS_WINNER = 'IS_WINNER';
+export const TURN = 'TURN';
+export const GAME_LOG = 'GAME_LOG';
+export const UNKNOWN_ERROR = 'UNKNOWN_ERROR';
+export const UNKNOWN_CODE = 'UNKNOWN_CODE';
+export const JOIN_GAME = 'JOIN_GAME';
+export const NEW_GAME = 'NEW_GAME';
+export const PLAYER_INPUT = 'PLAYER_INPUT';
+export const INIT = 'INIT';
+export const GAME_CODE = 'GAME_CODE';
