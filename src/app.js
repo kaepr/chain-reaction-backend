@@ -26,7 +26,7 @@ require('./helpers/redis/redis_init');
 
 const app = express();
 const server = new http.Server(app);
-socketInstance(server);
+
 const whitelist = ['https://chain-reaction-online.netlify.app'];
 
 // if (process.env.NODE_ENV === 'production') {
@@ -58,6 +58,8 @@ app.options('*', cors());
 
 // add cors later
 app.use(cors(corsOptions));
+
+socketInstance(server);
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(expressLogger);
