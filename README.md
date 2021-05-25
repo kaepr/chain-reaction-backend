@@ -67,3 +67,6 @@ The project uses Express, Socket.io and MongoDB. It uses JsonWebToken and redis 
 [Original Game Play Store Link](https://play.google.com/store/apps/details?id=com.BuddyMattEnt.ChainReaction&hl=en_IN&gl=US)
 
 Help in implementing game logic from [Sarthak Mittal's Repo](https://github.com/Sarthak-Mittal/chain-reaction)
+
+Help in implementing authentication logic from [
+yoursTRULY  Youtube Channel](https://www.youtube.com/playlist?list=PLdHg5T0SNpN0ygjV4yGXNct25jY_ue70U)
