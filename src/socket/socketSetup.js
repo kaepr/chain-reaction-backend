@@ -16,7 +16,7 @@ const verifyUser = async (socket, next) => {
   } catch (err) {
     socket.emit(NOT_AUTHORIZED, 'If you face any errors, login and try again');
     const errMsg = new Error('Not authorized');
-    errMsg.data = { content: 'Please try again after logging again' };
+    errMsg.data = { content: 'Try again after logging again.' };
     next(errMsg);
   }
 };
