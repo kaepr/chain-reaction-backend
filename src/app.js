@@ -27,7 +27,7 @@ require('./helpers/redis/redis_init');
 const app = express();
 const server = new http.Server(app);
 socketInstance(server);
-const whitelist = ['https://chain-reaction-online.netlify.app/'];
+const whitelist = ['https://chain-reaction-online.netlify.app'];
 
 // if (process.env.NODE_ENV === 'production') {
 //   whitelist.push('https://chain-reaction-online.netlify.app/');
@@ -35,18 +35,29 @@ const whitelist = ['https://chain-reaction-online.netlify.app/'];
 //   whitelist.push('http://localhost:3000');
 // }
 
-const corsOptions = {
-  origin(origin, cb) {
-    if (whitelist.indexOf(origin) !== -1) {
-      cb(null, true);
+// const corsOptions = {
+//   origin(origin, cb) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       cb(null, true);
+//     } else {
+//       cb(new Error('Not allowed by CORS'));
+//     }
+//   },
+// };
+
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
     } else {
-      cb(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS'));
     }
   },
 };
+app.options('*', cors());
 
 // add cors later
-app.use(cors());
+app.use(cors(corsOptions));
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(expressLogger);

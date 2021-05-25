@@ -31,7 +31,7 @@ function socketInstance(app) {
   const io = new Server(app, {
     transports: ['websocket', 'polling'],
     cors: {
-      origin: [url],
+      origin: 'https://chain-reaction-online.netlify.app',
       methods: ['GET', 'POST'],
       credentials: true,
     },
