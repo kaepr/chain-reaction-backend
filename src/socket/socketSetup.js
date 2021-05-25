@@ -2,6 +2,7 @@
 import { Server } from 'socket.io';
 import { verifyRefreshToken } from '../helpers/token/token_validation';
 import gameHandler from './gameHandler';
+import { NOT_AUTHORIZED } from './socketEvents';
 
 const verifyUser = async (socket, next) => {
   try {
@@ -13,8 +14,10 @@ const verifyUser = async (socket, next) => {
       next();
     }
   } catch (err) {
-    console.log('user not verified');
-    next(err);
+    socket.emit(NOT_AUTHORIZED, 'If you face any errors, login and try again');
+    const errMsg = new Error('Not authorized');
+    errMsg.data = { content: 'Please try again after logging again' };
+    next(errMsg);
   }
 };
 
@@ -22,19 +25,14 @@ function socketInstance(app) {
   const io = new Server(app, {
     transports: ['websocket', 'polling'],
     cors: {
-      origin: 'http://localhost:3000',
+      origin: ['http://localhost:3000'],
       methods: ['GET', 'POST'],
       credentials: true,
     },
     // origins: ['http://localhost:3000', 'https://admin.socket.io'],
   });
 
-  console.log('Socket IO started');
-
   const onConnection = async function socketHandler(socket) {
-    console.log('user id ', socket.userId);
-    console.log('socket connection id = ', socket.id);
-
     gameHandler(io, socket);
   };
 

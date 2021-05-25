@@ -14,3 +14,4 @@ export const NEW_GAME = 'NEW_GAME';
 export const PLAYER_INPUT = 'PLAYER_INPUT';
 export const INIT = 'INIT';
 export const GAME_CODE = 'GAME_CODE';
+export const NOT_AUTHORIZED = 'NOT_AUTHORIZED';

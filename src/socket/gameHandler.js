@@ -26,7 +26,6 @@ async function gameHandler(io, socket) {
   const leftRoom = () => {
     const tempUsers = users.filter((x) => x !== socket.id);
     users = tempUsers;
-    console.log('all users = ', users);
   };
 
   const startGameBoard = (roomName) => {
@@ -39,7 +38,7 @@ async function gameHandler(io, socket) {
 
   const handlePlayerInput = (data) => {
     const { playerTurn, x, y } = data;
-    console.log('x,y,turn = ', x, y, playerTurn);
+    console.log('inside input handler', data);
 
     const roomName = clientRooms[socket.id];
 
@@ -59,10 +58,10 @@ async function gameHandler(io, socket) {
       // current player turns
       gameState[roomName] = handleClick(x, y, playerTurn, gameState[roomName]);
       const winCheck = checkWinner(gameState[roomName]);
+      console.log('win check', winCheck);
 
       if (winCheck !== 0) {
         // Player has won
-        // socket.emit('gameLog', `Player ${winCheck} Won`);
         io.in(roomName).emit(EVENT.GAME_DATA, gameState[roomName]);
         io.in(roomName).emit(EVENT.TURN, whoseTurn[roomName]);
         io.in(roomName).emit(EVENT.IS_WINNER, winCheck);
@@ -80,11 +79,10 @@ async function gameHandler(io, socket) {
       }
       whoseTurn[roomName] = nextPlayer;
       // Emit messages indicitating next player is now able to turn
-      io.in(roomName).emit('gameData', gameState[roomName]);
-      io.in(roomName).emit('turn', whoseTurn[roomName]);
+      io.in(roomName).emit(EVENT.GAME_DATA, gameState[roomName]);
+      io.in(roomName).emit(EVENT.TURN, whoseTurn[roomName]);
     } else if (turn !== socket.number) {
       // Incorrect players tries to move
-      // socket.emit('gameLog', 'Only the correct player should move');
     }
   };
 
@@ -100,7 +98,7 @@ async function gameHandler(io, socket) {
     if (numClients === 0) {
       socket.emit(EVENT.UNKNOWN_CODE, {
         errorMsg:
-          'No such Room exists. Please crosscheck the room id or make a new one',
+          'No such room exists. Please cross check the room id or make a new one',
       });
       return;
     }
