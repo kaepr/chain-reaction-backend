@@ -11,7 +11,7 @@ import connectDB from './database/db';
 import logger from './utils/logger';
 
 // Sets logger middlware
-// const expressLogger = expressPino({ logger });
+const expressLogger = expressPino({ logger });
 
 // Import Routes
 const authRoute = require('./routes/auth');
@@ -48,9 +48,9 @@ const corsOptions = {
 // add cors later
 app.use(cors(corsOptions));
 
-// if (process.env.NODE_ENV !== 'test') {
-//   app.use(expressLogger);
-// }
+if (process.env.NODE_ENV !== 'test') {
+  app.use(expressLogger);
+}
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
