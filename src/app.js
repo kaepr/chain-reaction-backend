@@ -46,7 +46,7 @@ const corsOptions = {
 };
 
 // add cors later
-app.use(cors(corsOptions));
+app.use(cors());
 
 if (process.env.NODE_ENV !== 'test') {
   app.use(expressLogger);
