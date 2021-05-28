@@ -51,7 +51,6 @@ The project uses Express, Socket.io and MongoDB. It uses JsonWebToken and redis 
    NODE_ENV = development
    ACCESS_TOKEN_SECRET =
    REFRESH_TOKEN_SECRET =
-   SOCKET_PORT = 
    ```
 
    Add the following fields to .env file in the project root
