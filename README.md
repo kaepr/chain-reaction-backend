@@ -4,7 +4,7 @@ Backend implementation of the chain reaction game.
 
 [Frontend implementation](https://github.com/standmarsh/chain-reaction-frontend)
 
-[Live Game Link](https://github.com/standmarsh/chain-reaction-frontend)
+[Live Game Link](https://chain-reaction-online.netlify.app/)
 
 ## About
 Chain reaction is a multiplayer game, in which players are assigned colors and take turns placing cells on the board. As soon as a cell reaches its limit, the cell explodes and spreads into the adjacent cells, changing the cell's color. As soon as the whole board is covered in a single color, the respective player wins.
