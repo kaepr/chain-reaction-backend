@@ -21,7 +21,11 @@ const userRoute = require('./routes/user');
 dotenv.config();
 
 // Connects to database and redis
-connectDB();
+
+if (process.env.NODE_ENV !== 'test') {
+  connectDB();
+}
+
 require('./helpers/redis/redis_init');
 
 const app = express();
@@ -45,8 +49,8 @@ const whitelist = ['https://chain-reaction-online.netlify.app'];
 //   },
 // };
 
-var corsOptions = {
-  origin: function (origin, callback) {
+const corsOptions = {
+  origin(origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
@@ -86,10 +90,11 @@ app.use((err, req, res, next) => {
     },
   });
 });
-const SOCKET_PORT = process.env.SOCKET_PORT || 5001;
 
-server.listen(SOCKET_PORT, () => {
-  logger.info(`Every service now running ${SOCKET_PORT}`);
-});
+// const SOCKET_PORT = process.env.SOCKET_PORT || 5001;
 
-export default app;
+// server.listen(SOCKET_PORT, () => {
+//   logger.info(`Every service now running ${SOCKET_PORT}`);
+// });
+
+export { app, server };
